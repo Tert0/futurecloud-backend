@@ -1,0 +1,8 @@
+_commit: v1.0
+_src_path: git@github.com:Tert0/fastapi-framework-template.git
+db_database: futurecloud
+db_host: db
+db_port: 5432
+db_username: futurecloud
+project_name: FutureCloud
+redis_host: redis

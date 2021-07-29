@@ -1,4 +1,4 @@
-_commit: v1.0
+_commit: v1.0.1
 _src_path: git@github.com:Tert0/fastapi-framework-template.git
 db_database: futurecloud
 db_host: db

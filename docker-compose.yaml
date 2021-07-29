@@ -11,7 +11,7 @@ services:
       - POSTGRES_DB=futurecloud
       - POSTGRES_PASSWORD=Secret
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      test: [ "CMD-SHELL", "pg_isready -U futurecloud" ]
       interval: 5s
       timeout: 5s
       retries: 5

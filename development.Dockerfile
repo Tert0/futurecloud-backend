@@ -12,4 +12,4 @@ COPY Pipfile.lock .
 
 RUN python -m pipenv install --system --deploy
 
-CMD ls -lah && uvicorn app.main:app --reload --port 80 --host 0.0.0.0
+CMD uvicorn app.main:app --reload --port 80 --host 0.0.0.0

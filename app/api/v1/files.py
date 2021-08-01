@@ -30,16 +30,23 @@ async def check_file_path(base_path: Path, user_path: Path):
     if ".." in user_path.parts:  # TODO Eventually not safe against Path Traversal Vulnerabilities
         logger.warning(f"[SECURITY] Found dots in '{user_path}'")
         raise HTTPException(status_code=400, detail="Blocked Path Traversal Vulnerability")
-    print(user_path, Path(os.path.relpath(user_path, "/")), user_path.is_absolute(),
-          base_path / Path(os.path.relpath(user_path, "/")), base_path / user_path)
+    print(
+        user_path,
+        Path(os.path.relpath(user_path, "/")),
+        user_path.is_absolute(),
+        base_path / Path(os.path.relpath(user_path, "/")),
+        base_path / user_path,
+    )
     if user_path.is_absolute():
         user_path = Path(os.path.relpath(user_path, "/"))
     if (base_path / user_path) == base_path:
         return
-    if Path(base_path).absolute() not in Path(
-            os.path.realpath(base_path / user_path)).absolute().parents:  # TODO change to async
-        logger.warning(f"[SECURITY] Paths doesn't match. Users Path: '{base_path / user_path}' and Base "
-                       f"Path: '{base_path}'")
+    if (
+        Path(base_path).absolute() not in Path(os.path.realpath(base_path / user_path)).absolute().parents
+    ):  # TODO change to async
+        logger.warning(
+            f"[SECURITY] Paths doesn't match. Users Path: '{base_path / user_path}' and Base " f"Path: '{base_path}'"
+        )
         raise HTTPException(status_code=400, detail="Blocked Path Traversal Vulnerability")
 
 

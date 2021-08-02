@@ -20,7 +20,7 @@ jobs:
       -
         name: Trim Latest Tag
         id: latest_tag
-        run: tag="${{ steps.raw_latest_tag.outputs.tag }}" && echo ${tag:1:20}
+        run: tag="${{ steps.raw_latest_tag.outputs.tag }}" && echo "::set-output name=tag::${tag:1:20}"
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -40,4 +40,4 @@ jobs:
         with:
           platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6
           push: true
-          tags: tert0/futurecloud-backend:latest, tert0/futurecloud-backend:${{ steps.latest_tag.outputs }}
+          tags: tert0/futurecloud-backend:latest, tert0/futurecloud-backend:${{ steps.latest_tag.outputs.tag }}

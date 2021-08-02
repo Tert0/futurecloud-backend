@@ -14,6 +14,8 @@ jobs:
       -
         name: Get Latest Tag
         uses: oprypin/find-latest-tag@v1
+        with:
+          repository: Tert0/futurecloud-backend
         id: raw_latest_tag
       -
         name: Trim Latest Tag

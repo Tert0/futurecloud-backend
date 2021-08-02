@@ -4,11 +4,21 @@ on:
   push:
     branches:
       - 'develop'
+    tags:
+      - "v*"
 
 jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
+      -
+        name: Get Latest Tag
+        uses: oprypin/find-latest-tag@v1
+        id: raw_latest_tag
+      -
+        name: Trim Latest Tag
+        id: latest_tag
+        run: tag="${{ steps.raw_latest_tag.outputs.tag }}" && echo ${tag:1:20}
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -26,6 +36,6 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6
           push: true
-          tags: tert0/futurecloud:latest
+          tags: tert0/futurecloud-backend:latest, tert0/futurecloud-backend:${{ steps.latest_tag.outputs }}
